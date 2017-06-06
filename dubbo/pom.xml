@@ -258,6 +258,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo-circute</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -317,6 +322,9 @@
 									<include>com.alibaba:dubbo-remoting-http</include>
 									<include>com.alibaba:dubbo-remoting-zookeeper</include>
 									<include>com.alibaba:dubbo-rpc-api</include>
+									<include>com.alibaba:dubbo-circute</include>
+									
+
 									<include>com.alibaba:dubbo-rpc-default</include>
 									<include>com.alibaba:dubbo-rpc-injvm</include>
 									<include>com.alibaba:dubbo-rpc-rmi</include>
@@ -461,6 +469,10 @@
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 									<resource>META-INF/dubbo/internal/com.alibaba.dubbo.cache.CacheFactory</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/dubbo/internal/com.alibaba.dubbo.circute.intf.CircuteFacedeFactory</resource>
 								</transformer>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">

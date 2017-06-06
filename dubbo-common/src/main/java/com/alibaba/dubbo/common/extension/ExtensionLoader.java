@@ -493,7 +493,13 @@ public class ExtensionLoader<T> {
         }
         return new IllegalStateException(buf.toString());
     }
-
+    
+    
+    /**
+     * 优先取WrapperClass ，如果有则先取包装类中的对象
+     * @param name
+     * @return
+     */
     @SuppressWarnings("unchecked")
     private T createExtension(String name) {
         Class<?> clazz = getExtensionClasses().get(name);
@@ -519,6 +525,7 @@ public class ExtensionLoader<T> {
                     type + ")  could not be instantiated: " + t.getMessage(), t);
         }
     }
+    
     
     private T injectExtension(T instance) {
         try {
@@ -625,6 +632,7 @@ public class ExtensionLoader<T> {
                                         }
                                         if (line.length() > 0) {
                                             Class<?> clazz = Class.forName(line, true, classLoader);
+                                            //继承了这个类
                                             if (! type.isAssignableFrom(clazz)) {
                                                 throw new IllegalStateException("Error when load extension class(interface: " +
                                                         type + ", class line: " + clazz.getName() + "), class " 
@@ -638,7 +646,11 @@ public class ExtensionLoader<T> {
                                                             + cachedAdaptiveClass.getClass().getName()
                                                             + ", " + clazz.getClass().getName());
                                                 }
-                                            } else {
+                                            } 
+                                            
+                                            //没有Adaptive注解 类，基本上类都没有这些注解
+                                            else {
+                                            	//加载包装类
                                                 try {
                                                     clazz.getConstructor(type);
                                                     Set<Class<?>> wrappers = cachedWrapperClasses;
@@ -647,10 +659,15 @@ public class ExtensionLoader<T> {
                                                         wrappers = cachedWrapperClasses;
                                                     }
                                                     wrappers.add(clazz);
+                                                    
                                                 } catch (NoSuchMethodException e) {
+                                                	//没有包装类的
                                                     clazz.getConstructor();
+                                                    //名字为空，就是javaspi的方式时
                                                     if (name == null || name.length() == 0) {
+                                                    	//获得class 对应的注解名称
                                                         name = findAnnotationName(clazz);
+                                                         //名字里面有，内部类等处理
                                                         if (name == null || name.length() == 0) {
                                                             if (clazz.getSimpleName().length() > type.getSimpleName().length()
                                                                     && clazz.getSimpleName().endsWith(type.getSimpleName())) {
@@ -662,6 +679,7 @@ public class ExtensionLoader<T> {
                                                     }
                                                     String[] names = NAME_SEPARATOR.split(name);
                                                     if (names != null && names.length > 0) {
+                                                    	//记载过扩 Activate 注解，在扩展注解中
                                                         Activate activate = clazz.getAnnotation(Activate.class);
                                                         if (activate != null) {
                                                             cachedActivates.put(names[0], activate);
@@ -734,6 +752,7 @@ public class ExtensionLoader<T> {
     
     private Class<?> createAdaptiveExtensionClass() {
         String code = createAdaptiveExtensionClassCode();
+        System.out.println("生成类为"+code);
         ClassLoader classLoader = findClassLoader();
         com.alibaba.dubbo.common.compiler.Compiler compiler = ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.common.compiler.Compiler.class).getAdaptiveExtension();
         return compiler.compile(code, classLoader);

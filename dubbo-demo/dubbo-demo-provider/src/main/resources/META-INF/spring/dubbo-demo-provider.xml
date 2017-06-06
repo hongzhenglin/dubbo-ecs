@@ -22,6 +22,10 @@
 	
 	<bean id="demoService" class="com.alibaba.dubbo.demo.provider.DemoServiceImpl" />
 	
-	<dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoService" />
+	<dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoService" >
+	<!-- 添加 熔断器 -->
+	
+	  <dubbo:parameter key="circuit" value="hystrix" />
+	</dubbo:service>
 	
 </beans>

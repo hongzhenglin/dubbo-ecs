@@ -59,5 +59,9 @@ public abstract class AbstractExporter<T> implements Exporter<T> {
     public String toString() {
         return getInvoker().toString();
     }
+    
+    public static void main(){
+    	//AbstractExporter e = new AbstractExporter(null);
+    }
 
 }

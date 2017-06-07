@@ -75,7 +75,7 @@ public class Constants {
 
     public static final String  $ECHO                              = "$echo";
     
-    public static final String CIR_KEY                             ="circuit";
+    public static final String CIR_KEY                             ="circuitName";
 
     public static final int     DEFAULT_IO_THREADS                 = Runtime.getRuntime()
                                                                            .availableProcessors() + 1;

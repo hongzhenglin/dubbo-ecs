@@ -64,7 +64,7 @@ public abstract class AbstractServiceConfig extends AbstractInterfaceConfig {
 
     // 允许执行请求数
     private Integer                executes;
-
+  
     protected List<ProtocolConfig> protocols;
 
     // 是否注册

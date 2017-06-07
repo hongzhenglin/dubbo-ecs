@@ -54,6 +54,14 @@
 				<xsd:documentation><![CDATA[ Use service mock implemention. ]]></xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
+		
+		<xsd:attribute name="circuitName" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ Use circuit of Name ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		
+		
 		<xsd:attribute name="merger" type="xsd:string" use="optional">
 			<xsd:annotation>
 				<xsd:documentation><![CDATA[ The multi-group result merger ]]></xsd:documentation>

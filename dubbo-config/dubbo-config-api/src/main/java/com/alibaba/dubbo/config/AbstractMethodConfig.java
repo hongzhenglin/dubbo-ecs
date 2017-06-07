@@ -60,8 +60,21 @@ public abstract class AbstractMethodConfig extends AbstractConfig {
 
     // 服务接口的失败mock实现类名
     protected String              validation;
+    
+    
+    //熔断器名称
+    private String                circuitName;
 
-    // 自定义参数
+
+    public String getCircuitName() {
+		return circuitName;
+	}
+
+	public void setCircuitName(String circuitName) {
+		this.circuitName = circuitName;
+	}
+
+	// 自定义参数
     protected Map<String, String> parameters;
 
     public Integer getTimeout() {

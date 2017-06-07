@@ -25,7 +25,7 @@
 	<dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoService" >
 	<!-- 添加 熔断器 -->
 	
-	  <dubbo:parameter key="circuit" value="hystrix" />
+	  <dubbo:parameter key="circuit" value="redis" />
 	</dubbo:service>
 	
 </beans>

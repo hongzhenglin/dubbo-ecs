@@ -29,7 +29,6 @@ public class CircuteFilter implements Filter{
 
 
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-		System.out.println("进入熔断器");
 		CircuteHandle cirle = this.circuteFactory.getCircuteHandle(invoker.getUrl());
 		return cirle.execute(invoker, invocation);
 	}
